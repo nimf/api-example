@@ -3,34 +3,35 @@ require 'test_helper'
 class ContactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @contact = contacts(:one)
+    @version_header = { 'Accept' => 'application/json; version=1' }
   end
 
   test "should get index" do
-    get contacts_url, as: :json
+    get contacts_url, as: :json, headers: @version_header
     assert_response :success
   end
 
   test "should create contact" do
     assert_difference('Contact.count') do
-      post contacts_url, params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json
+      post contacts_url, params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json, headers: @version_header
     end
 
     assert_response 201
   end
 
   test "should show contact" do
-    get contact_url(@contact), as: :json
+    get contact_url(@contact), as: :json, headers: @version_header
     assert_response :success
   end
 
   test "should update contact" do
-    patch contact_url(@contact), params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json
+    patch contact_url(@contact), params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json, headers: @version_header
     assert_response 200
   end
 
   test "should destroy contact" do
     assert_difference('Contact.count', -1) do
-      delete contact_url(@contact), as: :json
+      delete contact_url(@contact), as: :json, headers: @version_header
     end
 
     assert_response 204

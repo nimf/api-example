@@ -2,6 +2,7 @@ module V1
   class ApiController < ApplicationController
     include ActionController::HttpAuthentication::Token::ControllerMethods
 
+    before_action :set_locale
     before_action :authenticate
 
     rescue_from ActiveRecord::RecordInvalid do |exception|
@@ -16,6 +17,13 @@ module V1
     end
 
     private
+
+    def set_locale
+      accept_language = request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)
+                                                           &.first&.to_sym
+      I18n.locale = accept_language if I18n.available_locales
+                                           .include? accept_language
+    end
 
     def authenticate
       authenticate_token || render_unauthorized

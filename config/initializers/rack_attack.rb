@@ -22,8 +22,8 @@ class Rack::Attack
       { 'Content-Type' => 'application/json',
         'Retry-After' => retry_after.to_s },
       [{ errors: [ApiError.new(
-        'Throttle limit reached', '429',
-        "Retry in #{I18n.t :second, :count => retry_after}"
+        I18n.t('err.throttle_limit_reached'), '429',
+        I18n.t('err.retry_in_seconds', count: retry_after)
       ).serialized] }.to_json]
     ]
   }

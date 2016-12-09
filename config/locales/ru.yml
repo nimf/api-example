@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    models:
+      contact: Контакт
+    attributes:
+      contact:
+        first_name: Имя
+        last_name: Фамилия
+        phone: Номер телефона
+  err:
+    throttle_limit_reached: 'Достигнут лимит запросов'
+    retry_in_seconds:
+      one: 'Повторите запрос через %{count} секунду'
+      few: 'Повторите запрос через %{count} секунды'
+      many: 'Повторите запрос через %{count} секунд'
+      other: 'Повторите запрос через %{count} секунд'

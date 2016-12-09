@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  second:
-    one: '%{count} second'
-    other: '%{count} seconds'
+  err:
+    throttle_limit_reached: 'Throttle limit reached'
+    retry_in_seconds:
+      one: 'Retry in %{count} second'
+      other: 'Retry in %{count} seconds'

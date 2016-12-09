@@ -13,6 +13,9 @@ module V1
     end
 
     swagger_path '/contacts' do
+      parameter name: :'Accept-Language', in: :header, type: :string,
+                description: 'locale', required: false, default: :en,
+                enum: %w(en ru)
       operation :get do
         key :summary, 'Returns contacts'
         key :description, ''

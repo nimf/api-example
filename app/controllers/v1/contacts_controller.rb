@@ -2,6 +2,8 @@ module V1
   class ContactsController < ApiController
     before_action :set_contact, only: [:show, :update, :destroy]
 
+    skip_before_action :authenticate, only: [:index, :show]
+
     include Swagger::Blocks
 
     swagger_schema :ContactsList do
@@ -61,6 +63,7 @@ module V1
           key :description, 'Successful response - newly created contact'
           schema type: :object, '$ref': :SingleContact
         end
+        extend SwaggerResponses::Unauthorized
         extend SwaggerResponses::UnprocessableEntity
       end
     end

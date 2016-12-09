@@ -3,6 +3,7 @@ require 'test_helper'
 class ContactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @contact = contacts(:one)
+    @auth_header = { 'Authorization' => 'Token token=abc123' }
   end
 
   test "should get index" do
@@ -12,7 +13,7 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contact" do
     assert_difference('Contact.count') do
-      post v1_contacts_url, params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json
+      post v1_contacts_url, params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json, headers: @auth_header
     end
 
     assert_response 201
@@ -24,13 +25,13 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contact" do
-    patch v1_contact_url(@contact), params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json
+    patch v1_contact_url(@contact), params: { contact: { first_name: @contact.first_name, last_name: @contact.last_name, phone: @contact.phone } }, as: :json, headers: @auth_header
     assert_response 200
   end
 
   test "should destroy contact" do
     assert_difference('Contact.count', -1) do
-      delete v1_contact_url(@contact), as: :json
+      delete v1_contact_url(@contact), as: :json, headers: @auth_header
     end
 
     assert_response 204

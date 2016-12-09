@@ -1,4 +1,20 @@
 class ApiError < StandardError
+  attr_reader :status, :detail
+
+  def initialize(msg = 'Internal Error', status = '500', detail = nil)
+    @status = status
+    @detail = detail
+    super(msg)
+  end
+
+  def serialized
+    {
+      status: status,
+      title: message,
+      detail: detail
+    }
+  end
+
   include Swagger::Blocks
 
   swagger_schema :ApiErrorList, required: [:errors] do

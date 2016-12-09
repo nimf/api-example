@@ -35,6 +35,34 @@ module V1
       render json: @contact
     end
 
+    swagger_schema :ContactInput do
+      key :required, [:first_name, :last_name, :phone]
+      property :first_name, type: :string, example: 'Yuriy'
+      property :last_name, type: :string, example: 'Golobokov'
+      property :phone, type: :string, example: '+77012111189'
+    end
+
+    swagger_schema :SingleContact do
+      property :contact, '$ref' => :Contact
+    end
+
+    swagger_path '/contacts' do
+      operation :post do
+        key :summary, 'Creates new contact'
+        key :description, ''
+        key :operationId, 'createContact'
+        key :tags, ['contact']
+        key :consumes, ['application/json']
+        key :produces, ['application/json']
+        parameter name: :contact, in: :body, required: true do
+          schema '$ref' => :ContactInput
+        end
+        response 201 do
+          key :description, 'Successful response - newly created contact'
+          schema type: :object, '$ref': :SingleContact
+        end
+      end
+    end
     # POST /v1/contacts
     def create
       @contact = Contact.new(contact_params)

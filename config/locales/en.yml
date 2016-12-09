@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  second:
+    one: '%{count} second'
+    other: '%{count} seconds'

@@ -61,10 +61,7 @@ module V1
           key :description, 'Successful response - newly created contact'
           schema type: :object, '$ref': :SingleContact
         end
-        response 422 do
-          key :description, 'Unprocessable entity'
-          schema type: :object, '$ref': :ApiErrorList
-        end
+        extend SwaggerResponses::UnprocessableEntity
       end
     end
     # POST /v1/contacts

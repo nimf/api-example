@@ -34,6 +34,8 @@ module V1
 
     # A list of all classes that have swagger_* declarations.
     SWAGGERED_CLASSES = [
+      ContactSerializer,
+      ContactsController,
       self
     ].freeze
 

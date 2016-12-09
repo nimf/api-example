@@ -1,5 +1,5 @@
 module V1
-  class ContactsController < ApplicationController
+  class ContactsController < ApiController
     before_action :set_contact, only: [:show, :update, :destroy]
 
     include Swagger::Blocks
@@ -66,22 +66,15 @@ module V1
     # POST /v1/contacts
     def create
       @contact = Contact.new(contact_params)
-
-      if @contact.save
-        render json: @contact, status: :created,
-               location: v1_contact_url(@contact)
-      else
-        render json: @contact.errors, status: :unprocessable_entity
-      end
+      @contact.save!
+      render json: @contact, status: :created,
+             location: v1_contact_url(@contact)
     end
 
     # PATCH/PUT /v1/contacts/1
     def update
-      if @contact.update(contact_params)
-        render json: @contact
-      else
-        render json: @contact.errors, status: :unprocessable_entity
-      end
+      @contact.update!(contact_params)
+      render json: @contact
     end
 
     # DELETE /v1/contacts/1

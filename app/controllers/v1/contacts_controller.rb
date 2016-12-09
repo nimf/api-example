@@ -23,6 +23,7 @@ module V1
           key :description, 'Successful response - list of contacts'
           schema type: :object, '$ref': :ContactsList
         end
+        extend SwaggerResponses::TooManyRequests
       end
     end
     # GET /v1/contacts
@@ -65,6 +66,7 @@ module V1
         end
         extend SwaggerResponses::Unauthorized
         extend SwaggerResponses::UnprocessableEntity
+        extend SwaggerResponses::TooManyRequests
       end
     end
     # POST /v1/contacts
